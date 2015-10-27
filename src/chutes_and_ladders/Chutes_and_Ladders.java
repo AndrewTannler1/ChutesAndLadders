@@ -23,9 +23,10 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
 
     final int numRows = 10;
     final int numColumns = 10;
+    final int numSpaces=numRows*numColumns;
     int board[][];
-    int currentRow;
-    int currentColumn;
+    final int numPlayers=4;
+    Player player[] = new Player[numPlayers];
     
     static Chutes_and_Ladders frame1;
     public static void main(String[] args) {
@@ -126,17 +127,18 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             getX(0)+zi*getWidth2()/numColumns,getY(getHeight2())  );
         }
         
-        for (int zrow=0;zrow<numRows;zrow++)
+        for (int zrow=0,count=numSpaces;zrow<numRows||count>=1;zrow++)
         {
-            for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
+            for (int zcolumn=0;zcolumn<numColumns;zcolumn++,count--)
             {
-                for(int count = 0; count < 100; count ++)
-                {
+                    g.setColor(Color.MAGENTA);
+                    g.fillOval(getX(0)+zcolumn*getWidth2()/numColumns,
+                    getY(0)+zrow*getHeight2()/numRows,
+                    getWidth2()/numColumns,
+                    getHeight2()/numRows);
                     g.setFont(new Font("Monospaced",Font.BOLD,20) );
                     g.setColor(Color.BLACK);
-                    g.drawString("" + count,getX(0)+zcolumn*getWidth2()/numColumns+20,getY(0)+zrow*getHeight2()/numRows+40);
-                }
-                count+= 1;
+                    g.drawString("" + count,getX(0)+zcolumn*getWidth2()/numColumns,getY(0)+zrow*getHeight2()/numRows+15);
             }
         }
         
@@ -159,8 +161,6 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
 /////////////////////////////////////////////////////////////////////////
     public void reset() {
         board = new int[numRows][numColumns];
-        currentRow = 0;
-        currentColumn = 0;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -204,5 +204,10 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
     }
     public int getHeight2() {
         return (ysize - 2 * YBORDER - WINDOW_BORDER - YTITLE);
+    }
+    class Player
+    {
+        int currentRow;
+        int currentColumn;
     }
 }
