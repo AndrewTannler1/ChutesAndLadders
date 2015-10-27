@@ -1,7 +1,6 @@
-//Andrew Tannler
+//Andrew Tannler:Author
 //Noah Vermillion
 //Ben Davis
-// @author 143000438
 package chutes_and_ladders;
 import java.io.*;
 import java.awt.*;
@@ -24,9 +23,15 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
     final int numRows = 10;
     final int numColumns = 10;
     final int numSpaces=numRows*numColumns;
-    int board[][];
+    Piece board[][];
     final int numPlayers=4;
-    Player player[] = new Player[numPlayers];
+    int currentRow;
+    int currentColumn;
+    enum playersTurn
+    {
+        one,two,three,four
+    }
+    playersTurn whosTurn;
     
     static Chutes_and_Ladders frame1;
     public static void main(String[] args) {
@@ -40,6 +45,14 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             public void mousePressed(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton()) {
                     //left button
+                    if(whosTurn==playersTurn.one)
+                        whosTurn=playersTurn.two;
+                    else if(whosTurn==playersTurn.two)
+                        whosTurn=playersTurn.three;
+                    else if(whosTurn==playersTurn.three)
+                        whosTurn=playersTurn.four;
+                    else
+                        whosTurn=playersTurn.one;
                 }
                 if (e.BUTTON3 == e.getButton()) {
                     //right button
@@ -141,6 +154,8 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
                     g.drawString("" + count,getX(0)+zcolumn*getWidth2()/numColumns,getY(0)+zrow*getHeight2()/numRows+15);
             }
         }
+        g.setColor(Color.BLACK);
+        g.drawString("Player "+whosTurn+"'s turn",getWidth2()/2-70,45);
         
         gOld.drawImage(image, 0, 0, null);
     }
@@ -160,7 +175,10 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
     }
 /////////////////////////////////////////////////////////////////////////
     public void reset() {
-        board = new int[numRows][numColumns];
+        board = new Piece[numRows][numColumns];
+        currentRow=0;
+        currentColumn=0;
+        whosTurn=playersTurn.one;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -204,10 +222,5 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
     }
     public int getHeight2() {
         return (ysize - 2 * YBORDER - WINDOW_BORDER - YTITLE);
-    }
-    class Player
-    {
-        int currentRow;
-        int currentColumn;
     }
 }
