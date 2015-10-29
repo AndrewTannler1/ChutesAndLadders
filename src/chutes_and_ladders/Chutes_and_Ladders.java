@@ -32,6 +32,8 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
         one,two,three,four
     }
     playersTurn whosTurn;
+    int diceNum;
+    boolean invertRow;
     
     static Chutes_and_Ladders frame1;
     public static void main(String[] args) {
@@ -45,6 +47,7 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             public void mousePressed(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton()) {
                     //left button
+                    diceNum=(int)((Math.random()*6)+1);
                     if(whosTurn==playersTurn.one)
                         whosTurn=playersTurn.two;
                     else if(whosTurn==playersTurn.two)
@@ -56,7 +59,6 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
                 }
                 if (e.BUTTON3 == e.getButton()) {
                     //right button
-                    reset();
                 }
                 repaint();
             }
@@ -86,6 +88,8 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
                 if (e.VK_DOWN == e.getKeyCode())
                 {
                 }
+                 if (e.VK_ESCAPE == e.getKeyCode())
+                    reset();
                 repaint();
             }
         });
@@ -139,19 +143,26 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             g.drawLine(getX(0)+zi*getWidth2()/numColumns ,getY(0) ,
             getX(0)+zi*getWidth2()/numColumns,getY(getHeight2())  );
         }
-        
+        int zcolumn;
         for (int zrow=0,count=numSpaces;zrow<numRows||count>=1;zrow++)
         {
-            for (int zcolumn=0;zcolumn<numColumns;zcolumn++,count--)
+            if(zrow % 2 == 0)
             {
-                    g.setColor(Color.MAGENTA);
-                    g.fillOval(getX(0)+zcolumn*getWidth2()/numColumns,
-                    getY(0)+zrow*getHeight2()/numRows,
-                    getWidth2()/numColumns,
-                    getHeight2()/numRows);
-                    g.setFont(new Font("Monospaced",Font.BOLD,20) );
-                    g.setColor(Color.BLACK);
-                    g.drawString("" + count,getX(0)+zcolumn*getWidth2()/numColumns,getY(0)+zrow*getHeight2()/numRows+15);
+                for (zcolumn=0;zcolumn<numColumns;zcolumn++,count--)
+                {
+                        g.setFont(new Font("Monospaced",Font.BOLD,20) );
+                        g.setColor(Color.BLACK);
+                        g.drawString("" + count,getX(0)+zcolumn*getWidth2()/numColumns,getY(0)+zrow*getHeight2()/numRows+15);
+                }
+            }
+            else if(zrow % 2 == 1)
+            {
+                for (zcolumn=numColumns-1;zcolumn>=0;zcolumn--,count--)
+                {
+                        g.setFont(new Font("Monospaced",Font.BOLD,20) );
+                        g.setColor(Color.BLACK);
+                        g.drawString("" + count,getX(0)+zcolumn*getWidth2()/numColumns,getY(0)+zrow*getHeight2()/numRows+15);
+                }
             }
         }
         g.setColor(Color.BLACK);
@@ -179,6 +190,7 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
         currentRow=0;
         currentColumn=0;
         whosTurn=playersTurn.one;
+        diceNum=(int)((Math.random()*6)+1);
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
