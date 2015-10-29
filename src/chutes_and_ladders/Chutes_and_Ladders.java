@@ -25,15 +25,22 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
     final int numSpaces=numRows*numColumns;
     Piece board[][];
     final int numPlayers=4;
-    int currentRow;
-    int currentColumn;
+    int currentRowPlayer1;
+    int currentColumnPlayer1;
+    int currentRowPlayer2;
+    int currentColumnPlayer2;
+    int currentRowPlayer3;
+    int currentColumnPlayer3;
+    int currentRowPlayer4;
+    int currentColumnPlayer4;
+    
     enum playersTurn
     {
         one,two,three,four
     }
     playersTurn whosTurn;
     int diceNum;
-    boolean invertRow;
+    boolean moveHappening;
     
     static Chutes_and_Ladders frame1;
     public static void main(String[] args) {
@@ -47,15 +54,18 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             public void mousePressed(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton()) {
                     //left button
-                    diceNum=(int)((Math.random()*6)+1);
-                    if(whosTurn==playersTurn.one)
-                        whosTurn=playersTurn.two;
-                    else if(whosTurn==playersTurn.two)
-                        whosTurn=playersTurn.three;
-                    else if(whosTurn==playersTurn.three)
-                        whosTurn=playersTurn.four;
-                    else
-                        whosTurn=playersTurn.one;
+                    
+                        diceNum=(int)((Math.random()*6)+1);
+                        
+                        if(whosTurn==playersTurn.one)
+                            whosTurn=playersTurn.two;
+                        else if(whosTurn==playersTurn.two)
+                            whosTurn=playersTurn.three;
+                        else if(whosTurn==playersTurn.three)
+                            whosTurn=playersTurn.four;
+                        else
+                            whosTurn=playersTurn.one;
+                    
                 }
                 if (e.BUTTON3 == e.getButton()) {
                     //right button
@@ -166,7 +176,9 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             }
         }
         g.setColor(Color.BLACK);
-        g.drawString("Player "+whosTurn+"'s turn",getWidth2()/2-70,45);
+        g.drawString("Player "+whosTurn+"'s turn.",260,45);
+        g.drawString("Move "+diceNum+" space(s).",500,45);
+        
         
         gOld.drawImage(image, 0, 0, null);
     }
@@ -187,10 +199,17 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
 /////////////////////////////////////////////////////////////////////////
     public void reset() {
         board = new Piece[numRows][numColumns];
-        currentRow=0;
-        currentColumn=0;
+        currentRowPlayer1=0;
+        currentColumnPlayer1=0;
+        currentRowPlayer2=0;
+        currentColumnPlayer2=0;
+        currentRowPlayer3=0;
+        currentColumnPlayer3=0;
+        currentRowPlayer4=0;
+        currentColumnPlayer4=0;
         whosTurn=playersTurn.one;
         diceNum=(int)((Math.random()*6)+1);
+        moveHappening = false;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -204,7 +223,441 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
 
             reset();
         }
+        if (moveHappening == true)
+        {
+            if(whosTurn == playersTurn.one)
+            {
+                 
+            }
+            else if(whosTurn == playersTurn.two)
+            {
+                
+            }
+            else if(whosTurn == playersTurn.three)
+            {
+                
+            }
+            else if(whosTurn == playersTurn.four)
+            {
+                
+            }
+            checkSpecialBlocks();
+            moveHappening = false;
+        }
+        
+        
     }
+////////////////////////////////////////////////////////////////////////////    
+    public void checkSpecialBlocks()
+    {
+        if(whosTurn == playersTurn.one)
+        {
+        //Ladders
+        if(board[currentRowPlayer1][currentColumnPlayer1] == board[numRows-1][0])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[6][2];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[numRows-1][3])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[8][6];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[numRows-1][8])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[6][numColumns-1];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[7][0])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[5][1];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[7][7])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[1][3];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[6][4])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[5][3];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[4][numColumns-1])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[3][6];
+          }
+        //
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[2][0])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[0][0];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[2][numColumns - 1])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[0][numColumns - 1];
+          }
+        
+        //chutes\\
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[0][2])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[2][2];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[0][5])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[2][5];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[0][7])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[6][7];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[1][6])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[7][3];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[3][3])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[4][0];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[4][4])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[4][7];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[5][8])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[8][9];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[5][6])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[7][5];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[8][4])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[9][5];
+          }
+        
+        else if(board[currentRowPlayer1][currentColumnPlayer1] == board[3][1])
+          {
+              board[currentRowPlayer1][currentColumnPlayer1] = board[8][1];
+          }
+        }
+//Player Two//////////////////////////////////////////////////////////////////////        
+        if(whosTurn == playersTurn.two)
+        {
+        //Ladders
+        if(board[currentRowPlayer2][currentColumnPlayer2] == board[numRows-1][0])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[6][2];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[numRows-1][3])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[8][6];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[numRows-1][8])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[6][numColumns-1];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[7][0])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[5][1];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[7][7])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[1][3];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[6][4])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[5][3];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[4][numColumns-1])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[3][6];
+          }
+        //
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[2][0])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[0][0];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[2][numColumns - 1])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[0][numColumns - 1];
+          }
+        
+        //chutes\\
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[0][2])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[2][2];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[0][5])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[2][5];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[0][7])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[6][7];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[1][6])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[7][3];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[3][3])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[4][0];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[4][4])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[4][7];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[5][8])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[8][9];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[5][6])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[7][5];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[8][4])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[9][5];
+          }
+        
+        else if(board[currentRowPlayer2][currentColumnPlayer2] == board[3][1])
+          {
+              board[currentRowPlayer2][currentColumnPlayer2] = board[8][1];
+          }
+        }
+//Player three/////////////////////////////////////////////////////////////////////
+        if(whosTurn == playersTurn.three)
+        {
+        //Ladders
+        if(board[currentRowPlayer3][currentColumnPlayer3] == board[numRows-1][0])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[6][2];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[numRows-1][3])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[8][6];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[numRows-1][8])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[6][numColumns-1];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[7][0])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[5][1];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[7][7])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[1][3];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[6][4])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[5][3];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[4][numColumns-1])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[3][6];
+          }
+        //
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[2][0])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[0][0];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[2][numColumns - 1])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[0][numColumns - 1];
+          }
+        
+        //chutes\\
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[0][2])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[2][2];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[0][5])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[2][5];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[0][7])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[6][7];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[1][6])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[7][3];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[3][3])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[4][0];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[4][4])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[4][7];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[5][8])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[8][9];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[5][6])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[7][5];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[8][4])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[9][5];
+          }
+        
+        else if(board[currentRowPlayer3][currentColumnPlayer3] == board[3][1])
+          {
+              board[currentRowPlayer3][currentColumnPlayer3] = board[8][1];
+          }
+        }
+//Player four///////////////////////////////////////////////////////////////////////        
+        if(whosTurn == playersTurn.four)
+        {
+        //Ladders
+        if(board[currentRowPlayer4][currentColumnPlayer4] == board[numRows-1][0])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[6][2];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[numRows-1][3])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[8][6];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[numRows-1][8])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[6][numColumns-1];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[7][0])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[5][1];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[7][7])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[1][3];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[6][4])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[5][3];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[4][numColumns-1])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[3][6];
+          }
+        //
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[2][0])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[0][0];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[2][numColumns - 1])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[0][numColumns - 1];
+          }
+        
+        //chutes\\
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[0][2])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[2][2];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[0][5])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[2][5];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[0][7])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[6][7];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[1][6])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[7][3];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[3][3])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[4][0];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[4][4])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[4][7];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[5][8])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[8][9];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[5][6])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[7][5];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[8][4])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[9][5];
+          }
+        
+        else if(board[currentRowPlayer4][currentColumnPlayer4] == board[3][1])
+          {
+              board[currentRowPlayer4][currentColumnPlayer4] = board[8][1];
+          }
+        }
+        
+        
+        
+    }
+    
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
         if (relaxer == null) {
