@@ -166,7 +166,9 @@ public class Chutes_and_Ladders extends JFrame implements Runnable {
             }
         }
         g.setColor(Color.BLACK);
-        g.drawString("Player "+whosTurn+"'s turn",getWidth2()/2-70,45);
+        g.drawString("Player "+whosTurn+"'s turn.",260,45);
+        g.drawString("Move "+diceNum+" space(s).",500,45);
+        
         
         gOld.drawImage(image, 0, 0, null);
     }
